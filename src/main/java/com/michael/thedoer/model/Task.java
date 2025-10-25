@@ -1,23 +1,30 @@
-package com.michael.thedoer;
+package com.michael.thedoer.model;
 
-import org.springframework.cglib.core.Local;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+@Entity
+@Table(name="tasks")
 public class Task {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "task-name", nullable = false)
     private String name;
+    @Column(name = "task-description", nullable = false)
     private String description;
+    @Column(name = "created-at", nullable = false)
     private LocalDate createdAt;
+    @Column(name = "end-date", nullable = false )
     private LocalDate endDate;
 
+    public Long getId() {
+        return id;
+    }
 
-    public Task(String name, String description, LocalDate createdAt, LocalDate endDate) {
-        this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.endDate = endDate;
-
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,15 +57,5 @@ public class Task {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createdAt=" + createdAt +
-                ", endDate=" + endDate +
-                '}';
     }
 }
