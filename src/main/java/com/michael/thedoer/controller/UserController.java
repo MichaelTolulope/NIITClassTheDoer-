@@ -1,6 +1,8 @@
 package com.michael.thedoer.controller;
 
 import com.michael.thedoer.Repository.UserRepo;
+import com.michael.thedoer.dto.UserLoginDto;
+import com.michael.thedoer.dto.UserProfileDto;
 import com.michael.thedoer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,14 +57,26 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        var  foundUser = userRepo.findByEmail(user.getEmail());
+    public ResponseEntity<User> login(@RequestBody UserLoginDto userLoginData) {
+
+        String email = userLoginData.getEmail();
+        String password = userLoginData.getPassword();
+
+        var  foundUser = userRepo.findByEmail(email);
         if(foundUser.isPresent()){
-            if(foundUser.get().getPassword().equals(user.getPassword())) {
+            if(foundUser.get().getPassword().equals(password)) {
                 return new ResponseEntity<>(foundUser.get(), HttpStatus.OK);
             }
         }
         return null;
+    }
+
+    @GetMapping("/user-profile")
+    public ResponseEntity<UserProfileDto> getUserProfile(@RequestParam Long userId) {
+        var foundUser = userRepo.findById(userId).get();
+        var userProfile = new UserProfileDto(foundUser.getFirstName(), foundUser.getLastName(), foundUser.getEmail());
+        return new ResponseEntity<>(userProfile,HttpStatus.FOUND);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.michael.thedoer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private LocalDate dateOfBirth;
 
