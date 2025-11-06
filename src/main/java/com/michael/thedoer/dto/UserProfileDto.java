@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserProfileDto {
@@ -18,11 +19,14 @@ public class UserProfileDto {
     @JsonProperty("full-name")
     private String fullName;
 
-    public UserProfileDto(String firstName, String lastName, String email) {
+    private int age;
+
+    public UserProfileDto(String firstName, String lastName, String email, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.fullName = firstName + " " + lastName;
+        this.age = Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
     public String getFirstName() {
@@ -51,6 +55,10 @@ public class UserProfileDto {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public int getAge(){
+        return age;
     }
 
 }

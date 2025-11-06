@@ -18,9 +18,11 @@ public class UserController {
     private UserRepo userRepo;
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> findAll() {
-        return new ResponseEntity<>(userRepo.findAll(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<User> findAll() {
+        return userRepo.findAll();
     }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<User> findById(@PathVariable Long userId) {
@@ -74,7 +76,7 @@ public class UserController {
     @GetMapping("/user-profile")
     public ResponseEntity<UserProfileDto> getUserProfile(@RequestParam Long userId) {
         var foundUser = userRepo.findById(userId).get();
-        var userProfile = new UserProfileDto(foundUser.getFirstName(), foundUser.getLastName(), foundUser.getEmail());
+        var userProfile = new UserProfileDto(foundUser.getFirstName(), foundUser.getLastName(), foundUser.getEmail(), foundUser.getDateOfBirth());
         return new ResponseEntity<>(userProfile,HttpStatus.FOUND);
 
     }

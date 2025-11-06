@@ -19,6 +19,18 @@ public class Task {
     @Column(name = "end-date", nullable = false )
     private LocalDate endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

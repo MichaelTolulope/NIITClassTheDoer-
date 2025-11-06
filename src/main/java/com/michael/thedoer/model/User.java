@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -21,6 +22,8 @@ public class User {
     @JsonIgnore
     private String password;
     private LocalDate dateOfBirth;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Task> tasks;
 
 
     public User(String firstName, String lastName, String email, String password, LocalDate dateOfBirth) {
