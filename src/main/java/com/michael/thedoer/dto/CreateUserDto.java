@@ -1,10 +1,23 @@
 package com.michael.thedoer.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 public class CreateUserDto {
+    @JsonProperty(required = true)
     private String  firstName;
+    @JsonProperty(required = true)
     private String lastName;
+    @JsonProperty(required = true)
+    @Email
     private String email;
+    @JsonProperty(required = true)
+    @Past
     private String dateOfBirth;
+    @JsonProperty(required = true)
+    @Size(min = 8, message = "password must be a minimun of 8 characters")
     private String password;
 
     public CreateUserDto(String firstName, String lastName, String email, String dateOfBirth, String password) {

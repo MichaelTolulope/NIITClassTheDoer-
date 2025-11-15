@@ -86,4 +86,8 @@ public class User {
     public Long getId() {
         return id;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
 }
