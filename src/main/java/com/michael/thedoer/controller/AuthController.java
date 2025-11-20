@@ -33,7 +33,7 @@ public class AuthController {
     BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    JwtService  jwtService;
+    JwtService jwtService;
 
     @PostMapping("/signup")
     public ResponseEntity<User> registerUser(@RequestBody RegisterUserDto user) {
@@ -42,7 +42,10 @@ public class AuthController {
         }
 
         User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
         newUser.setEmail(user.getEmail());
+        newUser.setDateOfBirth(user.getDateOfBirth());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         return new ResponseEntity<>(userRepo.save(newUser), HttpStatus.CREATED);
     }
@@ -55,7 +58,6 @@ public class AuthController {
                         userLoginData.getPassword()
                 )
         );
-
         var token = jwtService.generateToken(userLoginData.getEmail());
         return ResponseEntity.ok(new JwtResponseDto(token));
     }

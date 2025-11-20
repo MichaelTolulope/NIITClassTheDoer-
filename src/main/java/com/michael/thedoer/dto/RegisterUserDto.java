@@ -3,6 +3,8 @@ package com.michael.thedoer.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterUserDto{
     @JsonProperty("first-name")
@@ -11,6 +13,7 @@ public class RegisterUserDto{
     private String lastName;
     private String email;
     private String password;
+    private LocalDate dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -43,4 +46,11 @@ public class RegisterUserDto{
     public void setPassword(String password) {
         this.password = password;
     }
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
 }
